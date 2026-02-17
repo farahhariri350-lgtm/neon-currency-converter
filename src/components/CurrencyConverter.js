@@ -4,7 +4,7 @@ import { useCurrencyConverter } from '../hooks/useCurrencyConverter';
 import './CurrencyConverter.css';
 
 const CurrencyConverter = () => {
-  const [amount, setAmount] = useState(100);
+  const [amount, setAmount] = useState("");
   const [fromCurrency, setFromCurrency] = useState('USD');
   const [toCurrency, setToCurrency] = useState('TRY');
   const [isSwapping, setIsSwapping] = useState(false);
