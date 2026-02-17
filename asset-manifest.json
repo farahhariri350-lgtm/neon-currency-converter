@@ -1,0 +1,15 @@
+{
+  "files": {
+    "main.css": "/neon-currency-converter/static/css/main.540cd040.css",
+    "main.js": "/neon-currency-converter/static/js/main.ff33da43.js",
+    "static/js/453.1bb46b82.chunk.js": "/neon-currency-converter/static/js/453.1bb46b82.chunk.js",
+    "index.html": "/neon-currency-converter/index.html",
+    "main.540cd040.css.map": "/neon-currency-converter/static/css/main.540cd040.css.map",
+    "main.ff33da43.js.map": "/neon-currency-converter/static/js/main.ff33da43.js.map",
+    "453.1bb46b82.chunk.js.map": "/neon-currency-converter/static/js/453.1bb46b82.chunk.js.map"
+  },
+  "entrypoints": [
+    "static/css/main.540cd040.css",
+    "static/js/main.ff33da43.js"
+  ]
+}
