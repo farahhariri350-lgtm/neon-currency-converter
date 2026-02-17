@@ -352,17 +352,50 @@ input[type=number] {
 }
 
 
-@media (max-width: 400px) {
+@media (max-width: 480px) {
+
   .neon-card {
-    padding: 20px;
-    border-radius: 20px;
+    padding: 15px;
+    max-width: 340px; 
   }
-  
+
+ 
+  .modern-input-group {
+    padding: 5px 10px; 
+    margin-bottom: 12px;
+  }
+
+  .modern-input-group input {
+    font-size: 20px; 
+    margin: 0;
+  }
+
   .selection-row {
-    gap: 5px;
+    gap: 4px; 
+    display: flex;
+    align-items: center;
   }
-  
+
+  .select-container {
+    width: 42%; 
+  }
+
+  .neon-select-wrapper {
+    padding: 6px 2px; 
+    height: 38px;
+  }
+
+  .neon-select-wrapper select {
+    font-size: 10px;
+    text-align: center;
+    padding: 0;
+  }
+
+
   .neon-swap-btn {
-    width: 35px;
-    height: 35px;
-  }}
+    width: 28px;
+    height: 28px;
+    min-width: 28px;
+    margin-top: 15px; 
+  }
+}

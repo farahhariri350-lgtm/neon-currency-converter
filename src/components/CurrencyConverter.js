@@ -6,11 +6,23 @@ import './CurrencyConverter.css';
 const CurrencyConverter = () => {
   const [amount, setAmount] = useState("");
   const [fromCurrency, setFromCurrency] = useState('USD');
-  const [toCurrency, setToCurrency] = useState('TRY');
+  const [toCurrency, setToCurrency] = useState('SYP');
   const [isSwapping, setIsSwapping] = useState(false);
 
- 
   const { rate, loading, error, refresh } = useCurrencyConverter(fromCurrency, toCurrency, amount);
+
+
+  const currencies = [
+    { code: 'USD', name: 'دولار أمريكي' },
+    { code: 'EUR', name: 'يورو' },
+    { code: 'SYP', name: 'ليرة سورية' },
+    { code: 'SAR', name: 'ريال سعودي' },
+    { code: 'KWD', name: 'دينار كويتي' },
+    { code: 'JOD', name: 'دينار أردني' },
+    { code: 'EGP', name: 'جنيه مصري' },
+    { code: 'AED', name: 'درهم إماراتي' },
+    { code: 'TRY', name: 'ليرة تركية' },
+  ];
 
   const bgIcons = useMemo(() => [
     { icon: '$', class: 'c1' }, { icon: '€', class: 'c2' }, 
@@ -19,7 +31,12 @@ const CurrencyConverter = () => {
   ], []);
 
   const result = useMemo(() => {
-    if (rate && amount > 0) return (amount * rate).toLocaleString(undefined, { maximumFractionDigits: 2 });
+    if (rate && amount > 0) {
+      return (amount * rate).toLocaleString(undefined, { 
+        maximumFractionDigits: 2,
+        minimumFractionDigits: 2 
+      });
+    }
     return null;
   }, [rate, amount]);
 
@@ -34,7 +51,6 @@ const CurrencyConverter = () => {
 
   return (
     <div className="page-wrapper">
-     
       <div className="bg-animation">
         {bgIcons.map((item, index) => (
           <div key={index} className={`floating-item ${item.class}`}>{item.icon}</div>
@@ -51,8 +67,9 @@ const CurrencyConverter = () => {
           <label>المبلغ</label>
           <input 
             type="number" 
-            value={amount === 0 ? '' : amount} 
-            onChange={(e) => setAmount(e.target.value === '' ? 0 : Number(e.target.value))}
+            placeholder="0.00"
+            value={amount} 
+            onChange={(e) => setAmount(e.target.value === '' ? '' : Number(e.target.value))}
             onFocus={(e) => e.target.select()}
           />
         </div>
@@ -62,10 +79,9 @@ const CurrencyConverter = () => {
             <span className="small-label">من</span>
             <div className="neon-select-wrapper">
               <select value={fromCurrency} onChange={(e) => setFromCurrency(e.target.value)}>
-                <option value="USD">USD</option>
-                <option value="TRY">TRY</option>
-                <option value="EUR">EUR</option>
-                <option value="SAR">SAR</option>
+                {currencies.map(curr => (
+                  <option key={curr.code} value={curr.code}>{curr.code} - {curr.name}</option>
+                ))}
               </select>
             </div>
           </div>
@@ -78,25 +94,23 @@ const CurrencyConverter = () => {
             <span className="small-label">إلى</span>
             <div className="neon-select-wrapper">
               <select value={toCurrency} onChange={(e) => setToCurrency(e.target.value)}>
-                <option value="TRY">TRY</option>
-                <option value="USD">USD</option>
-                <option value="EUR">EUR</option>
-                <option value="SAR">SAR</option>
+                {currencies.map(curr => (
+                  <option key={curr.code} value={curr.code}>{curr.code} - {curr.name}</option>
+                ))}
               </select>
             </div>
           </div>
         </div>
 
-        <button className="neon-submit-btn hover-glow" onClick={refresh} disabled={loading}>
-          {loading ? <FaSpinner className="spin-icon" /> : <><FaSyncAlt /> تحديث السعر</>}
+        <button className="neon-submit-btn hover-glow" onClick={refresh} disabled={loading || !amount}>
+          {loading ? <FaSpinner className="spin-icon" /> : <><FaSyncAlt /> تحديث أسعار الصرف</>}
         </button>
 
-  
         {error && <p className="error-msg fade-in">{error}</p>}
 
-        {result && !loading && (
+        {result && (
           <section className="neon-result-box scale-up-result">
-            <p className="res-sub">النتيجة التقريبية</p>
+            <p className="res-sub">النتيجة التقريبية الحالية</p>
             <div className="res-main">
                <span className="res-num">{result}</span>
                <span className="res-unit">{toCurrency}</span>
